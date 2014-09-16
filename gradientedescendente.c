@@ -5,8 +5,9 @@ main(){
 //li - linhas da matriz de dados ou quantidade de amostras
 //co - variaveis independentes ou colunas da matriz de dados
 int li,co;
-int a,b;
-float valor, soma_total, maior, menor;
+int a,b,i;
+float valor, soma_total, maior, menor, alfa;
+double soma, parcial;
 double *theta;
 float **total;
 //uma matriz terá dois ponteiros (por ser bidimensional)
@@ -103,10 +104,30 @@ for(a=0;a<li; a++){
 }
 
 theta = (double*) malloc((co) * sizeof(double*));
-
 for(b=0;b<co;b++){
-    theta[b] = theta[b] - alfa * (1/(co-1)) *
+    theta[b]=0;
 }
+
+alfa = 0.0003;
+for(i=1;i<=1000;i++){
+
+    for(b=0;b<co-1;b++){
+        soma = 0;
+        for(a=0;a<li;a++){
+            soma=soma+(matriz[a][b]-matriz[a][co-1])*matriz[a][b];
+            //printf("\n %d soma: %f", a, soma);
+        }
+        //parcial = 1.0/(co-1.0);
+        //printf("\n\nParcial %f",parcial);
+        theta[b]=theta[b]-(alfa*((1.0/(co-1.0))*soma));
+    }
+if(i == 100 || i == 200 || i == 500 || i == 700 || i == 800 || i == 1000){
+            printf("\nIteracao: %d", i);
+            for(b=0;b<co-1;b++)
+            printf("\t\nTheta %d: %f",b,theta[b]);
+        }
+}
+
 
 }
 

@@ -43,7 +43,7 @@ for(a=0;a<li; a++){
         printf("%.1f ",matriz[a][b]);
     }
 }
-
+/*
 //matriz bidimensional dinamicamente inicializada, contendo sempre 3 elementos de linhas.
 //total[0] -> soma_total, total[1] -> maior, total[2] -> menor
 total = (float**) malloc(3 * sizeof(float*));
@@ -54,7 +54,8 @@ for(a=0;a<3;a++){
         //todos os valores são previamente inicializados 1.0
         total[a][b]= 1.0;
     }
-}
+}*/
+/*
     //a matriz de dados é percorrida para identificar o maior e o menor valor de cada coluna
     //enquanto são percorridos os valores de cada coluna, é realizada a soma_total
     //percorridas as colunas a partir do índice 1, onde estão os primeiros valores importados
@@ -84,22 +85,22 @@ for(a=0;a<3;a++){
         printf("\nSoma desta coluna: %1.f", total[0][b]);
         printf("\nMaior desta coluna: %1.f", total[1][b]);
         printf("\nMenor desta coluna: %1.f", total[2][b]);
-    }
-//Normalização entre ZERO e UM
+    }*/
+/*Normalização entre ZERO e UM
 for(a=0;a<li;a++){
     for(b=1;b<co;b++){
         //total[2] -> menor, total[1] -> maior
         matriz[a][b]=(matriz[a][b]-total[2][b])/(total[1][b]-total[2][b]);
     }
-}
-//Exibição da Matriz Normalizada
+}*/
+/*Exibição da Matriz Normalizada
 printf("\n\n\n");
 for(a=0;a<li; a++){
     printf("\n");
     for(b=0;b<co;b++){
         printf("%.1f ",matriz[a][b]);
     }
-}
+}*/
 
 }
 
