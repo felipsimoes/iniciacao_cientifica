@@ -3,7 +3,7 @@
 #include "math.h"
 
 main(){
-int li,co, iteracoes = 1000;
+int li,co, iteracoes = 1500;
 int a,b,iter;
 float valor, soma_total, maior, menor, alfa = 0.01, custo;
 float **total, *theta, *hipotese, *erro;
@@ -11,7 +11,7 @@ double *erro_sqr;
 double J, q;
 //uma matriz terá dois ponteiros (por ser bidimensional)
 float **matriz, *vetordey;
-float **erro_transposto, **gradiente_tranposto;
+float *theta_change, **gradiente, soma_gradiente;
 FILE *file;
 
 /* IMPORTA DADOS */
@@ -56,8 +56,18 @@ for(a=0;a<li;a++){
 /* INICIALIZACAO DOS THETAS */
 //inicializacao dos thetas
 theta = (float*) malloc(co * sizeof(float));
+theta_change = (float*) malloc(co * sizeof(float));
 for(b=0;b<co;b++){
     theta[b]=0.0;
+    theta_change[b]=0.0;
+}
+/* INICIALIZACAO DO GRADIENTE */
+gradiente = (float**) malloc (li * sizeof(float*));
+for(a=0;a<=li;a++){
+   gradiente[a] = (float*) malloc (co * sizeof(float));
+   for(b=0;b<co;b++){
+    gradiente[a][b]=0.0;
+   }
 }
 
 /* FUNCAO DE CUSTO */
@@ -78,28 +88,65 @@ J = (1.0/(2*li)) * q;
 
 printf("\nJ igual a : %f",J);
 
-/* Matrizes transpostas */
+/* Matrizes transpostas
 erro_tranposto = (float**) malloc(li * sizeof(float*));
 for(a=0;a<li;a++){
     erro_tranposto = (float*) malloc(co * sizeof(float));
     for(b=0;a<co;b++){
         erro_transposto[a][b] = erro[b][a];
     }
-}
+}*/
 
 /* GRADIENTE DESCENDENTE */
 
 for (iter=1;iter<=iteracoes;iter++){
-    for(a=0;a<=li;a++){
+    for(a=0;a<li;a++){
+        hipotese[a]=0.0;
         for(b=0;b<co;b++){
             hipotese[a] += (theta[b] * matriz[a][b]);
         }
         erro[a] = (hipotese[a] - vetordey[a]);
-        //gradiente = ;
     }
+    for(b=0;b<co;b++){
+        for(a=0;a<=li;a++){
+            if(a==0){soma_gradiente=0.0;}
+            if(a==li){gradiente[a][b] = soma_gradiente; break;}
+            gradiente[a][b] = matriz[a][b] * erro[a];
+            soma_gradiente += gradiente[a][b];
+        }
+    }
+    for(b=0;b<co;b++){
+        theta_change[b]=0.0;
+        //for(a=0;a<li;a++){
+            theta_change[b] = alfa * ((1.0/li)* gradiente[li][b]);
+        //}
+        theta[b]=theta[b]-theta_change[b];
+    }
+    if(iter == 250 || iter == 500 || iter == 750 || iter == 1000 || iter == 1500){
+    printf("\n%f",theta[1]);
+    printf("\n%f",theta[0]);}
 }
 
 
+/* FUNCAO DE CUSTO */
+J = 0.0;
+q = 0.0;
+//por linha eu tenho uma hipotese
+for(a=0;a<=li;a++){
+    for(b=0;b<co;b++){
+        hipotese[a] += (theta[b] * matriz[a][b]);
+    }
+    erro[a] = (hipotese[a] - vetordey[a]);
+    erro_sqr[a] = pow(erro[a],2);
+}
+for(a=0;a<li;a++){
+q += erro_sqr[a];
+}
+J = (1.0/(2*li)) * q;
+
+printf("\nJ igual a : %f",J);
+
+//theta[b] = theta[b] - alpha * total * matriz[a][b];
 }
 
 //VERIFICACOES
