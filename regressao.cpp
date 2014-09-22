@@ -24,7 +24,7 @@ int main(){
 void importaArquivo(){
 FILE *arquivo;
 
-if((arquivo = fopen("teste.txt","r")) == NULL)
+if((arquivo = fopen("ex1data1.txt","r")) == NULL)
   {
     printf("Erro ao abrir arquivo!!!\n");
     exit(1);
