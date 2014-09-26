@@ -6,7 +6,7 @@
 int li,co,a,b,iter;
 float valor, soma_total, maior, menor;
 double **total, *theta, *erro, q, h;
-double **matriz, *y, *theta_change, *gradiente;
+double **matriz, *y, *theta_change, **gradiente, soma_gradiente;
 void ImportarDados();
 void InicializarThetas();
 void InicializarVariaveisGradiente();
@@ -74,7 +74,12 @@ void InicializarThetas(){
 
 void InicializarVariaveisGradiente(){
         erro = (double*) malloc(li * sizeof(double));
-        gradiente = (double*) malloc (co * sizeof(double*));
+        gradiente = (double**) malloc (li * sizeof(double*));
+        for(a=0;a<=li;a++){
+           gradiente[a] = (double*) malloc (co * sizeof(double));
+           for(b=0;b<co;b++){
+            gradiente[a][b]=0.0; }
+        }
 }
 
 void GradienteDescendente(){
@@ -86,13 +91,17 @@ void GradienteDescendente(){
             }
             erro[a] = (h - y[a]);
         }
-        for(b=0;b<co;b++){ // gera gradiente por coluna e por linhas
-            gradiente[b] = 0;
-            for(a=0;a<li;a++){
-                gradiente[b]+= matriz[a][b] * erro[a];
+        for(b=0;b<co;b++){ // por coluna e por linhas
+            for(a=0;a<=li;a++){
+                if(a==0){soma_gradiente=0.0;}
+                if(a==li){gradiente[a][b] = soma_gradiente; break;}
+                gradiente[a][b] = matriz[a][b] * erro[a];
+                soma_gradiente += gradiente[a][b];
             }
+        }
+        for(b=0;b<co;b++){
             theta_change[b]=0.0;
-            theta_change[b] = alfa * ((1.0/li)* gradiente[b]);
+            theta_change[b] = alfa * ((1.0/li)* gradiente[li][b]);
             theta[b]=theta[b]-theta_change[b];
         }
     }
