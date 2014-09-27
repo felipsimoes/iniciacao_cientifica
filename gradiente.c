@@ -32,7 +32,7 @@ main(){
 void ImportarDados(){
     FILE *file;
 
-    file = fopen("ex1data1.txt", "r");
+    file = fopen("datasets/ex1data1.txt", "r");
     if(file == NULL) {
             printf("\nOcorreu um erro ao acessar este arquivo.\n");
             exit(1); }

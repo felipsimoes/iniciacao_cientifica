@@ -1,20 +1,29 @@
 #include "stdio.h"
 #include "stdlib.h"
 char **linhas, **colunas;
-float **tabela;
+float **tabela, **treinamento;
+char buff;
 int i,j;
 void ImportaLinhas();
 void ImportaColunas();
-main(){
+void ImportaTabela();
+void EscreveDados();
+void MatrizTreinamento();
+
+int main(){
 
     ImportaLinhas();
     ImportaColunas();
+    ImportaTabela();
+    EscreveDados();
+    MatrizTreinamento();
 
+    return 0;
 }
 
 void ImportaLinhas(){
 FILE *file;
-    file = fopen("sideInfoRowsMovielens.txt", "r");
+    file = fopen("datasets/sideInfoRowsMovielens.txt", "r");
     if(file == NULL) {
             printf("\nOcorreu um erro ao acessar este arquivo.\n");
             exit(1); }
@@ -28,7 +37,7 @@ FILE *file;
 
 void ImportaColunas(){
 FILE *file;
-    file = fopen("sideInfoColumnsMovielens.txt", "r");
+    file = fopen("datasets/sideInfoColumnsMovielens.txt", "r");
     if(file == NULL) {
             printf("\nOcorreu um erro ao acessar este arquivo.\n");
             exit(1); }
@@ -42,16 +51,47 @@ FILE *file;
 
 void ImportaTabela(){
 FILE *file;
-    file = fopen("ratingsMovielens.txt", "r");
+char limite[5];
+float conv;
+    file = fopen("datasets/ratingsMovielens.txt", "r");
     if(file == NULL) {
             printf("\nOcorreu um erro ao acessar este arquivo.\n");
             exit(1); }
     tabela = (float**) malloc(943 * sizeof(float*));
-    for(i=0;i<=943;i++){
+    for(i=0;i<943;i++){
         tabela[i] = (float*) malloc(1682 * sizeof(float));
-        for(j=0;j<=1682;j++){
-            fscanf(file, "%f", &tabela[i][j]);
+        for(j=0;j<1682;j++){
+            fgets(limite,5,file);
+            conv = atoi(limite);
+            tabela[i][j] = conv;
         }
     }
+    fclose(file);
+}
+
+void MatrizTreinamento(){
+float *treinamento;
+int cont = 0;
+
+    for(i=0;i<943;i++){
+        for(j=0;j<1682;j++){
+            if(tabela[i][j] > 0){
+                cont++;
+            }
+        }
+    }
+    treinamento = (float*) malloc(cont * sizeof(float));
+
+
+}
+
+void EscreveDados(){
+FILE *file;
+    file = fopen("novo.txt", "w");
+    for(i=0;i<943;i++){
+        for(j=0;j<1682;j++){
+        fprintf(file, "%.1f ", tabela[i][j]);
+        }
+        fprintf(file, "\n");}
     fclose(file);
 }
