@@ -2,7 +2,7 @@
 #include "stdlib.h"
 #include "string.h"
 char **linhas, **colunas;
-char relaciona[100][200] = {};
+char relaciona[100000][200] = {};
 float **tabela, **treinamento;
 char buff;
 int i,j;
@@ -18,8 +18,8 @@ int main(){
     ImportaColunas();
     ImportaTabela();
     MatrizTreinamento();
-    //EscreveDados();
-    printf("%s", relaciona[50]);
+    EscreveDados();
+
     return 0;
 }
 
@@ -85,11 +85,9 @@ int cont = 0, a = 0;
     for(i=0;i<943;i++){
         for(j=0;j<1682;j++){
             if(tabela[i][j] > 0){
-                    //strcpy(relaciona[a],"");
                     strcat(escreve, linhas[i]);
                     strcat(escreve, colunas[j]);
                     strcpy(relaciona[a],escreve);
-                    //printf("%s", relaciona[a]);
                     strcpy(escreve, "");
                     a++;
             }
@@ -98,22 +96,12 @@ int cont = 0, a = 0;
 
 }
 
-/** void EscreveDados(){
-FILE *file;
-    file = fopen("novo.txt", "w");
-    for(i=0;i<943;i++){
-        for(j=0;j<1682;j++){
-        fprintf(file, "%.1f ", tabela[i][j]);
-        }
-        fprintf(file, "\n");}
-    fclose(file);
-} */
 void EscreveDados(){
 FILE *file;
-    file = fopen("novo.txt", "w");
-    for(i=0;i<100;i++){
-        fprintf(file, "%f ", treinamento[i]);
+    file = fopen("teste.txt", "w");
+    for(i=0;i<100000;i++){
+        fprintf(file, "%s \n", relaciona[i]);
         }
-        fprintf(file, "\n");
+        //fprintf(file, "\n");
     fclose(file);
 }
