@@ -1,6 +1,7 @@
 #include "stdio.h"
 #include "stdlib.h"
-#define teste2
+#include "string.h"
+#define teste3
 
 int matriz[3][3];
 int i,j,conv;
@@ -58,3 +59,19 @@ void PegaDados(){
     }
 }
 #endif // teste2
+
+#ifdef teste3
+main(){
+char teste1[3][10] = {"Meu nome:","My name:","Call me:"};
+char teste2[3][10] = {"Felipe","Phill","Lipe"};
+char res[3][30] = {};
+int a;
+
+for(a=0;a<3;a++){
+strcpy(res[a],"");
+strcat(res[a],teste1[a]);
+strcat(res[a],teste2[a]);
+}
+printf("%s", res[2]);
+}
+#endif // teste3

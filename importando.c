@@ -1,6 +1,8 @@
 #include "stdio.h"
 #include "stdlib.h"
+#include "string.h"
 char **linhas, **colunas;
+char relaciona[100][200] = {};
 float **tabela, **treinamento;
 char buff;
 int i,j;
@@ -15,9 +17,9 @@ int main(){
     ImportaLinhas();
     ImportaColunas();
     ImportaTabela();
-    EscreveDados();
     MatrizTreinamento();
-
+    //EscreveDados();
+    printf("%s", relaciona[50]);
     return 0;
 }
 
@@ -70,8 +72,8 @@ float conv;
 }
 
 void MatrizTreinamento(){
-float *treinamento;
-int cont = 0;
+char escreve[200] = {};
+int cont = 0, a = 0;
 
     for(i=0;i<943;i++){
         for(j=0;j<1682;j++){
@@ -80,12 +82,23 @@ int cont = 0;
             }
         }
     }
-    treinamento = (float*) malloc(cont * sizeof(float));
-
+    for(i=0;i<943;i++){
+        for(j=0;j<1682;j++){
+            if(tabela[i][j] > 0){
+                    //strcpy(relaciona[a],"");
+                    strcat(escreve, linhas[i]);
+                    strcat(escreve, colunas[j]);
+                    strcpy(relaciona[a],escreve);
+                    //printf("%s", relaciona[a]);
+                    strcpy(escreve, "");
+                    a++;
+            }
+        }
+    }
 
 }
 
-void EscreveDados(){
+/** void EscreveDados(){
 FILE *file;
     file = fopen("novo.txt", "w");
     for(i=0;i<943;i++){
@@ -93,5 +106,14 @@ FILE *file;
         fprintf(file, "%.1f ", tabela[i][j]);
         }
         fprintf(file, "\n");}
+    fclose(file);
+} */
+void EscreveDados(){
+FILE *file;
+    file = fopen("novo.txt", "w");
+    for(i=0;i<100;i++){
+        fprintf(file, "%f ", treinamento[i]);
+        }
+        fprintf(file, "\n");
     fclose(file);
 }
