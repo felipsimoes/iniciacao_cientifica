@@ -73,7 +73,9 @@ float conv;
 
 void MatrizTreinamento(){
 char escreve[200] = {};
+char rate[10] = {};
 int cont = 0, a = 0;
+char d = ' ', c = ';', *ptr;
 
     for(i=0;i<943;i++){
         for(j=0;j<1682;j++){
@@ -85,8 +87,16 @@ int cont = 0, a = 0;
     for(i=0;i<943;i++){
         for(j=0;j<1682;j++){
             if(tabela[i][j] > 0){
+                    sprintf(rate,"%f",tabela[i][j]);
                     strcat(escreve, linhas[i]);
                     strcat(escreve, colunas[j]);
+                    strcat(escreve,";");
+                    strcat(escreve, rate);
+                    ptr=escreve;
+                    for(;*ptr!='\0';ptr++){
+                        if(*ptr==c)
+                        *ptr=d;
+                    }
                     strcpy(relaciona[a],escreve);
                     strcpy(escreve, "");
                     a++;
@@ -100,8 +110,7 @@ void EscreveDados(){
 FILE *file;
     file = fopen("teste.txt", "w");
     for(i=0;i<100000;i++){
-        fprintf(file, "%s \n", relaciona[i]);
+        fprintf(file, "%s\n", relaciona[i]);
         }
-        //fprintf(file, "\n");
     fclose(file);
 }
