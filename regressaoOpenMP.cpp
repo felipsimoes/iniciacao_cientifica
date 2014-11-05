@@ -31,7 +31,7 @@ printf("Valor para funcao de custo com beta igual a zero: %f\n",calculaFuncaoCus
 void importaArquivo(){
 FILE *arquivo;
 
-if((arquivo = fopen("teste.txt","r")) == NULL)
+if((arquivo = fopen("datasets/teste.txt","r")) == NULL)
   {
     printf("Erro ao abrir arquivo!!!\n");
     exit(1);
@@ -93,8 +93,8 @@ float calculaFuncaoCusto(){
   {
 
      	//	J=1/(2*m) * (sum(((X*theta)-y)^2));
-      //  #pragma omp for  private (h,j)
-      #pragma omp parallel for reduction(+:custo)
+        #pragma omp for private (h,j) reduction(+:custo)
+     //#pragma omp for reduction(+:custo)
 		for(i=0;i<tam;i++){
 			h=0;
 			for(j=0;j<totBetas;j++){

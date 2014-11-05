@@ -3,7 +3,7 @@
 #include "string.h"
 #include "math.h"
 #define iteracoes 2000
-#define alfa 0.01
+#define alfa 0.1
 int li,co,a,b,iter,k;
 float valor, soma_total, maior, menor;
 double **total, *theta, *erro_treino, *erro_teste, q, h, erro_medio_treino = 0, erro_medio_teste = 0;

@@ -13,7 +13,7 @@ void EscreveDados();
 int main(){
 int x;
     ImportarDados();
-    //NormalizarDados();
+    NormalizarDados();
 
    for(a=0;a<li;a++){
         for(b=1; b<co;b++){
@@ -25,7 +25,7 @@ int x;
             }
         }
     }
-    /* for(a=1;a<2;a++){
+     /* for(a=1;a<2;a++){
         for(b =1; b<(co-6);b++){
             //if(b!=4 && b!=5 && b!=6 && b!=27 && b!=28 && b!=29){
             printf("%f ", nova[a][b]);
@@ -90,7 +90,7 @@ void NormalizarDados(){
             }
         for(a=0;a<li;a++){
             for(b=1;b<co;b++){
-                if(b != 3 && b !=4 && b != 5 && b != 27 && b != 28 && b != 29) {
+                if( b !=4 && b != 5 && b != 27 && b != 28 && b != 29) {
                     matriz[a][b]=(matriz[a][b]-total[2][b])/(total[1][b]-total[2][b]);
                 }
             }
@@ -100,7 +100,7 @@ void NormalizarDados(){
 void EscreveDados(){
 FILE *file;
 co = co - 6;
-    file = fopen("testeNormalizado2.txt", "w");
+    file = fopen("baseNormalizada.txt", "w");
     for(a=0;a<li;a++){
         for(b=1;b<=co;b++){
             if(b == co){

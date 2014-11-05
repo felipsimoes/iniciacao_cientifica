@@ -1,7 +1,7 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "math.h"
-#define iteracoes 1500
+#define iteracoes 2000
 #define alfa 0.01
 int li,co,a,b,iter;
 float valor, soma_total, maior, menor;
@@ -32,7 +32,7 @@ main(){
 void ImportarDados(){
     FILE *file;
 
-    file = fopen("ex1data1.txt", "r");
+    file = fopen("../datasets/ex1data1.txt", "r");
     if(file == NULL) {
             printf("\nOcorreu um erro ao acessar este arquivo.\n");
             exit(1); }
